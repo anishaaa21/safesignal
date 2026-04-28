@@ -1,65 +1,100 @@
-import { useState } from 'react';
 import { auth } from '../firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useState } from 'react';
 
-export default function LoginPage() {
-  const [signingIn, setSigningIn] = useState(false);
-  const [loginError, setLoginError] = useState('');
+export default function Login() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleGoogleSignIn = async () => {
-    setSigningIn(true);
-    setLoginError('');
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setError('');
     try {
-      const googleProvider = new GoogleAuthProvider();
-      await signInWithPopup(auth, googleProvider);
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
     } catch (err) {
-      setLoginError('Login failed. Please try again.');
-      console.error(err);
+      setError('Login failed. Please try again.');
     }
-    setSigningIn(false);
+    setLoading(false);
   };
 
-  const featureList = [
-    { icon: '🗺️', text: 'Live risk zone heatmap' },
-    { icon: '🆘', text: 'One-tap SOS alerts' },
-    { icon: '🛡️', text: 'Journey safety guard' },
-  ];
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 px-6">
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: '100vh',
+      backgroundColor: '#0D0D0D',
+      padding: '24px'
+    }}>
 
-      <div className="mb-8 text-center">
-        <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-          <span className="text-3xl">🛡️</span>
+      {/* Logo */}
+      <div style={{ marginBottom: '32px', textAlign: 'center' }}>
+        <div style={{
+          width: '80px', height: '80px',
+          backgroundColor: '#DC2626',
+          borderRadius: '50%',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          margin: '0 auto 16px auto',
+          fontSize: '32px'
+        }}>
+          🛡️
         </div>
-        <h1 className="text-5xl font-bold text-white mb-2">SafeSignal</h1>
-        <p className="text-gray-400 text-lg">Safety that works before you ask</p>
+        <h1 style={{ color: 'white', fontSize: '40px', fontWeight: 'bold', marginBottom: '8px' }}>
+          SafeSignal
+        </h1>
+        <p style={{ color: '#9CA3AF', fontSize: '16px' }}>
+          Safety that works before you ask
+        </p>
       </div>
 
-      <div className="w-full max-w-sm mb-8 space-y-3">
-        {featureList.map((item) => (
-          <div key={item.text} className="flex items-center gap-3 bg-gray-800 rounded-xl px-4 py-3">
-            <span className="text-2xl">{item.icon}</span>
-            <span className="text-gray-300">{item.text}</span>
+      {/* Feature cards */}
+      <div style={{ width: '100%', maxWidth: '360px', marginBottom: '32px' }}>
+        {[
+          { icon: '🗺️', text: 'Live risk zone heatmap' },
+          { icon: '🆘', text: 'One-tap SOS alerts' },
+          { icon: '🛡️', text: 'Journey safety guard' },
+        ].map((item) => (
+          <div key={item.text} style={{
+            display: 'flex', alignItems: 'center', gap: '12px',
+            backgroundColor: '#1A1A1A',
+            borderRadius: '12px',
+            padding: '12px 16px',
+            marginBottom: '10px'
+          }}>
+            <span style={{ fontSize: '24px' }}>{item.icon}</span>
+            <span style={{ color: '#D1D5DB' }}>{item.text}</span>
           </div>
         ))}
       </div>
 
+      {/* Login button */}
       <button
-        onClick={handleGoogleSignIn}
-        disabled={signingIn}
-        className="w-full max-w-sm bg-red-600 hover:bg-red-700 disabled:bg-gray-600 
-                   text-white font-bold py-4 px-8 rounded-2xl text-lg 
-                   transition-all duration-200 shadow-lg"
+        onClick={handleGoogleLogin}
+        disabled={loading}
+        style={{
+          width: '100%', maxWidth: '360px',
+          backgroundColor: loading ? '#4B5563' : '#DC2626',
+          color: 'white',
+          fontWeight: 'bold',
+          padding: '16px',
+          borderRadius: '16px',
+          fontSize: '18px',
+          border: 'none',
+          cursor: loading ? 'not-allowed' : 'pointer',
+        }}
       >
-        {signingIn ? '⏳ Signing in...' : '🔐 Sign in with Google'}
+        {loading ? '⏳ Signing in...' : '🔐 Sign in with Google'}
       </button>
 
-      {loginError && (
-        <p className="text-red-400 mt-4 text-center">{loginError}</p>
+      {error && (
+        <p style={{ color: '#F87171', marginTop: '16px', textAlign: 'center' }}>
+          {error}
+        </p>
       )}
 
-      <p className="text-gray-600 text-xs mt-8 text-center">
+      <p style={{ color: '#4B5563', fontSize: '12px', marginTop: '32px', textAlign: 'center' }}>
         Your location and data are kept private and secure
       </p>
     </div>
