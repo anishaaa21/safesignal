@@ -1,7 +1,7 @@
 import { messaging } from '../firebase';
 import { getToken, onMessage } from 'firebase/messaging';
 
-const VAPID_KEY = 'YOUR_VAPID_KEY_HERE';
+const VAPID_KEY = 'BK80D8C9ir-Wc9f8iOMNeVzKKbCcSgq3FaD6hyqlv5zxax-_9zbPbCLK6wi50mvhdNaEDzTZF-jEthvLyfH9rm4';
 
 // 🔔 Request notification permission
 export async function requestNotificationPermission() {
