@@ -8,7 +8,10 @@ const firebaseConfig = {
   apiKey: "AIzaSyAv47CuLYkyvkn6dOqHu9JoDlooc-qREng",
   authDomain: "safesignal-ec077.firebaseapp.com",
   projectId: "safesignal-ec077",
+  storageBucket: "safesignal-ec077.firebasestorage.app",
+  messagingSenderId: "298284500715",
   appId: "1:298284500715:web:35f1221b850d96a72e20ae",
+  measurementId: "G-KS0LM7B5P6"
 };
 
 const app = initializeApp(firebaseConfig);
