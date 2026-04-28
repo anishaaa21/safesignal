@@ -3,16 +3,13 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAv47CuLYkyvkn6dOqHu9JoDlooc-qREng",
+  authDomain: "safesignal-ec077.firebaseapp.com",
+  projectId: "safesignal-ec077",
+  appId: "1:298284500715:web:35f1221b850d96a72e20ae",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(firebaseApp);
-export const db = getFirestore(firebaseApp);
-export default firebaseApp;
+export const auth = getAuth(app);
+export const db = getFirestore(app);
