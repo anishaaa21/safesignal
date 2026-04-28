@@ -1,40 +1,17 @@
-const test = require("./firebase.js");
-console.log("Firebase loaded:", test);
-const express = require("express");
-const app = express();
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const { createAlert } = require("../services/alertService"); // ✅ correct path
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-// Middleware
-app.use(express.json());
-
-// 🚨 SOS Alert API
-app.post("/create-alert", async (req, res) => {
-  try {
-    const { userId, lat, lng } = req.body;
-
-    // Validation
-    if (!userId || !lat || !lng) {
-      return res.status(400).json({
-        success: false,
-        message: "Missing required fields",
-      });
-    }
-
-    const result = await createAlert(userId, { lat, lng });
-
-    return res.status(200).json(result);
-  } catch (error) {
-    console.error("API Error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
-  }
-});
-
-// Start server
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

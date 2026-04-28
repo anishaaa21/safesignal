@@ -1,21 +1,15 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAJdR5ASC4lDhD4AF_-CMwYqSLci9xdiVI",
-  authDomain: "safesignal-hackathon-f0709.firebaseapp.com",
-  projectId: "safesignal-hackathon-f0709",
-  storageBucket: "safesignal-hackathon-f0709.firebasestorage.app",
-  messagingSenderId: "174334234620",
-  appId: "1:174334234620:web:ee35402a92926108e42c79"
+  apiKey: "AIzaSyAv47CuLYkyvkn6dOqHu9JoDlooc-qREng",
+  authDomain: "safesignal-ec077.firebaseapp.com",
+  projectId: "safesignal-ec077",
+  appId: "1:298284500715:web:35f1221b850d96a72e20ae",
 };
 
 const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
 export const auth = getAuth(app);
-export const storage = getStorage(app);
-
-export default app;
+export const db = getFirestore(app);
