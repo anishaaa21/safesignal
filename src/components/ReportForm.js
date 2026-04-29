@@ -56,9 +56,8 @@ export default function ReportForm({ userLocation, onClose }) {
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, zIndex: 50,
-      background: 'rgba(0,0,0,0.75)',
-      backdropFilter: 'blur(12px)',
+      minHeight: '100vh',
+      background: '#050508',
       display: 'flex', alignItems: 'flex-end',
     }}>
 
@@ -70,9 +69,8 @@ export default function ReportForm({ userLocation, onClose }) {
         borderTop: '1px solid rgba(255,255,255,0.08)',
         borderRadius: '28px 28px 0 0',
         padding: '24px 20px 40px',
-        maxHeight: '90vh',
+        minHeight: '100vh',
         overflowY: 'auto',
-        animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
       }}>
 
         {/* Handle bar */}

@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Journey from './pages/Journey';
 import Contacts from './pages/Contacts';
 import TrackPage from './pages/TrackPage';
+import ReportPage from './pages/ReportPage';
 
 import Navbar from './components/Navbar';
 import SOSButton from './components/SOSButton';
@@ -24,6 +25,7 @@ function AuthenticatedApp() {
       <SOSButton userLocation={location} />
       <Routes>
         <Route path="/"         element={<Home />} />
+        <Route path="/report"   element={<ReportPage />} />
         <Route path="/journey"  element={<Journey />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="*"         element={<Navigate to="/" />} />
