@@ -15,6 +15,9 @@ export default function Login() {
       const result = await signInWithPopup(auth, provider);
       await createUserProfile(result.user);
     } catch (err) {
+      setError('Login failed. Please try again.');
+      console.error(err);
+    }
     setLoading(false);
   };
 
@@ -28,8 +31,6 @@ export default function Login() {
       backgroundColor: '#0D0D0D',
       padding: '24px'
     }}>
-
-      {/* Logo */}
       <div style={{ marginBottom: '32px', textAlign: 'center' }}>
         <div style={{
           width: '80px', height: '80px',
@@ -49,7 +50,6 @@ export default function Login() {
         </p>
       </div>
 
-      {/* Feature cards */}
       <div style={{ width: '100%', maxWidth: '360px', marginBottom: '32px' }}>
         {[
           { icon: '🗺️', text: 'Live risk zone heatmap' },
@@ -69,7 +69,6 @@ export default function Login() {
         ))}
       </div>
 
-      {/* Login button */}
       <button
         onClick={handleGoogleLogin}
         disabled={loading}
