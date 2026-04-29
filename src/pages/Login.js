@@ -1,3 +1,4 @@
+import { createUserProfile } from '../utils/authUtils';
 import { auth } from '../firebase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useState } from 'react';
@@ -11,10 +12,9 @@ export default function Login() {
     setError('');
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      await createUserProfile(result.user);
     } catch (err) {
-      setError('Login failed. Please try again.');
-    }
     setLoading(false);
   };
 
