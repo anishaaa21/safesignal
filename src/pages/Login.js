@@ -98,7 +98,6 @@ export default function Login() {
                   {f.desc}
                 </p>
               </div>
-              {/* Glowing dot */}
               <div style={{
                 marginLeft: 'auto', width: '7px', height: '7px',
                 borderRadius: '50%', background: 'var(--crimson)',
@@ -148,25 +147,15 @@ export default function Login() {
         </button>
 
         {error && (
-          <p style={{
-            color: 'var(--crimson)', textAlign: 'center',
-            marginTop: '12px', fontSize: '14px',
-          }}>
+          <p style={{ color: 'var(--crimson)', textAlign: 'center', marginTop: '12px', fontSize: '14px' }}>
             {error}
           </p>
         )}
 
-        <p style={{
-          color: 'rgba(255,255,255,0.2)', fontSize: '11px',
-          textAlign: 'center', marginTop: '24px',
-        }}>
+        <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '11px', textAlign: 'center', marginTop: '24px' }}>
           🔒 Your location and data are encrypted and private
         </p>
       </div>
-
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-      `}</style>
     </div>
   );
 }

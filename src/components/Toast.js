@@ -13,35 +13,34 @@ export default function ToastContainer() {
     showToastFn = (message, type) => {
       const id = Date.now();
       setToasts(prev => [...prev, { id, message, type }]);
-      setTimeout(() => {
-        setToasts(prev => prev.filter(t => t.id !== id));
-      }, 4000);
+      setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 4000);
     };
   }, []);
 
-  const colors = {
-    danger:  'bg-red-800 border-red-600',
-    success: 'bg-green-800 border-green-600',
-    warning: 'bg-yellow-800 border-yellow-600',
-    info:    'bg-blue-900 border-blue-600',
-  };
-
-  const icons = {
-    danger: '🚨', success: '✅', warning: '⚠️', info: 'ℹ️'
+  const config = {
+    danger:  { bg: 'rgba(255,45,85,0.15)',   border: 'rgba(255,45,85,0.3)',   icon: '🚨' },
+    success: { bg: 'rgba(0,214,143,0.12)',   border: 'rgba(0,214,143,0.25)',  icon: '✅' },
+    warning: { bg: 'rgba(255,183,3,0.12)',   border: 'rgba(255,183,3,0.25)',  icon: '⚠️' },
+    info:    { bg: 'rgba(100,130,255,0.12)', border: 'rgba(100,130,255,0.2)', icon: 'ℹ️' },
   };
 
   return (
-    <div className="fixed top-4 left-4 right-4 z-[100] space-y-2">
-      {toasts.map(toast => (
-        <div
-          key={toast.id}
-          className={`${colors[toast.type]} border rounded-xl px-4 py-3 
-                     flex items-center gap-3 shadow-xl`}
-        >
-          <span>{icons[toast.type]}</span>
-          <p className="text-white text-sm font-medium">{toast.message}</p>
-        </div>
-      ))}
+    <div style={{ position: 'fixed', top: '16px', left: '16px', right: '16px',
+      zIndex: 100, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {toasts.map(toast => {
+        const c = config[toast.type] || config.info;
+        return (
+          <div key={toast.id} style={{ background: c.bg, backdropFilter: 'blur(20px)',
+            border: `1px solid ${c.border}`, borderRadius: '14px',
+            padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px',
+            animation: 'slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
+            <span style={{ fontSize: '18px' }}>{c.icon}</span>
+            <p style={{ color: 'white', fontSize: '13px', fontWeight: 500, fontFamily: 'DM Sans, sans-serif' }}>
+              {toast.message}</p>
+          </div>
+        );
+      })}
     </div>
   );
 }
