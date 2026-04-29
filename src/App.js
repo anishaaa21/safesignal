@@ -4,8 +4,7 @@ import { auth } from './firebase';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import { useEffect } from 'react';
-import { runSeed } from './utils/seedData';
+
 
 function SplashScreen() {
   return (
@@ -28,7 +27,7 @@ function AuthenticatedApp() {
 }
 
 function App() {
-  useEffect(() => { runSeed(); }, []);
+  
   const [currentUser, authLoading] = useAuthState(auth);
 
   if (authLoading) return <SplashScreen />;
