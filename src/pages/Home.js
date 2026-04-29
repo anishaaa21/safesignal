@@ -1,51 +1,63 @@
 import { useState } from 'react';
 import MapView from '../components/MapView';
+import ReportForm from '../components/ReportForm';
 import useUserLocation from '../hooks/useUserLocation';
 
 export default function Home() {
-  const { location, error } = useUserLocation();
-  const [showReport, setShowReport] = useState(false);
+  const { location: userCoords, error: locationError } = useUserLocation();
+  const [reportModalOpen, setReportModalOpen] = useState(false);
 
   return (
-    <div className="relative">
-      <MapView userLocation={location} />
-      
-      {/* Report button — bottom left above navbar */}
+    <div style={{ position: 'relative' }}>
+      <MapView userLocation={userCoords} />
+
+      {/* Report button */}
       <button
-        onClick={() => setShowReport(true)}
-        className="fixed bottom-24 left-4 z-40 
-                   bg-orange-500 hover:bg-orange-600 
-                   text-white font-bold px-4 py-3 
-                   rounded-2xl shadow-xl text-sm"
+        onClick={() => setReportModalOpen(true)}
+        style={{
+          position: 'fixed', bottom: '90px', left: '16px', zIndex: 40,
+          background: 'rgba(10,10,15,0.85)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          color: 'white', fontFamily: 'Syne, sans-serif',
+          fontWeight: 600, fontSize: '13px',
+          padding: '12px 18px', borderRadius: '50px',
+          cursor: 'pointer',
+          display: 'flex', alignItems: 'center', gap: '8px',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+        }}
       >
-        + Report Incident
+        <span style={{
+          width: '8px', height: '8px', borderRadius: '50%',
+          background: 'var(--crimson)',
+          boxShadow: '0 0 8px var(--crimson)',
+          display: 'inline-block',
+          animation: 'glowPulse 2s ease-in-out infinite',
+        }} />
+        Report Incident
       </button>
 
-      {/* Location error banner */}
-      {error && (
-        <div className="fixed top-4 left-4 right-4 z-40 
-                        bg-yellow-800 text-yellow-200 
-                        px-4 py-2 rounded-xl text-sm text-center">
+      {/* Location error */}
+      {locationError && (
+        <div style={{
+          position: 'fixed', top: '70px', left: '16px', right: '16px', zIndex: 40,
+          background: 'rgba(255,183,3,0.12)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,183,3,0.3)',
+          padding: '10px 16px', borderRadius: '12px',
+          color: 'rgba(255,220,100,0.9)', fontSize: '13px', textAlign: 'center',
+        }}>
           ⚠️ Location access denied — showing default location
         </div>
       )}
 
-      {/* ReportForm — Member 3 builds this, you import it */}
-      {showReport && (
-        <div>
-          {/* Import ReportForm here once Member 3 builds it */}
-          {/* <ReportForm userLocation={location} onClose={() => setShowReport(false)} /> */}
-          <div className="fixed inset-0 bg-black bg-opacity-80 z-50 
-                          flex items-center justify-center">
-            <div className="bg-gray-800 p-6 rounded-2xl">
-              <p className="text-white mb-4">Report form coming soon...</p>
-              <button onClick={() => setShowReport(false)} 
-                      className="bg-red-600 text-white px-4 py-2 rounded-xl">
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Report form */}
+      {reportModalOpen && (
+        <ReportForm
+          userLocation={userCoords}
+          onClose={() => setReportModalOpen(false)}
+        />
       )}
     </div>
   );
